@@ -1,9 +1,13 @@
 {{ block title }}
-    Page title
+    Header Demo 2
 {{ endblock }}
 
 {{ block content }}
-<pre id="result">
+<p>
+    This page sends a request to https://ckgk.de/headers.php. The page returns the headers received from the client in JSON format. The returned values are shown below. This is a workaround for systems that allow JavaScript execution but do not provide the http headers received from the client natively.
+</p>
+
+<pre id="output">
     fetching...
 </pre>
     
@@ -13,19 +17,33 @@
 {{ block scripts }}
 <script>
     async function fetchHeaders() {
-      const response = await fetch('https://ckgk.de/headers.php');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    }
+      try {
+        const response = await fetch('https://ckgk.de/headers.php');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
     
-    fetchHeaders()
-      .then(data => {
-        console.log(data);
-        const resultElement = document.getElementById('result');
-        resultElement.textContent = JSON.stringify(data, null, 2);
-      })
-      .catch(console.error);
+        const data = await response.json();
+        const outputEl = document.getElementById('output');
+        if (outputEl) outputEl.textContent = '';
+    
+        // Print all headers
+        Object.entries(data).forEach(([header, value]) => {
+          const line = `${header}: ${value}`;
+          // console.log(line);
+          if (outputEl) outputEl.textContent += line + '\n';
+        });
+    
+        // Handle case with no headers
+        if (outputEl && Object.keys(data).length === 0) {
+          outputEl.textContent = 'No headers found.';
+        }
+      } catch (error) {
+        console.error('Error fetching headers:', error);
+      }
+    }
+
+    
+    fetchHeaders();
 </script>
 {{ endblock scripts }}
