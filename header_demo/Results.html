@@ -3,8 +3,24 @@
 {{ endblock }}
 
 {{ block content }}
-
+<pre id="result">
+    fetching...
+</pre>
+    
     {{ next_button }}
 {{ endblock }}
 
-
+{{ block scripts }}
+<script>
+    async function fetchHeaders() {
+      const response = await fetch('https://ckgk.de/headers.php');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    }
+    
+    let h = fetchHeaders();
+    document.getElementById("result").innerHTML = h;
+</script>
+{{ endblock scripts }}
