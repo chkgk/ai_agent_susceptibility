@@ -1,9 +1,20 @@
 {{ block title }}
-    Page title
+    Header Overview
 {{ endblock }}
 {{ block content }}
 
-    {{ ctx }}
+    <p>
+        Headers: {{ headers }}
+    </p>
+    <p>
+        User-agent: {{ headers.user_agent }}
+    </p>
+    <p>
+        <b>OpenAI Signatures:</b> <br>
+        Signature: {{ signature }} <br>
+        Signature-Input: {{ signature_input  }}<br>
+        Signature-Agent: {{ signature_agent }}
+    </p>
 
     {{ formfields }}
     {{ next_button }}
