@@ -16,20 +16,24 @@
 
 {{ block scripts }}
 <script>
-    async function fetchHeaders() {
+    function fetchHeadersSync() {
         try {
-            const response = await fetch('https://headers.ckgk.de');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://headers.ckgk.de', false); // false makes it synchronous
+            xhr.send(null);
+
+            if (xhr.status !== 200) {
+                throw new Error(`HTTP error! status: ${xhr.status}`);
             }
-            const data = await response.json();
+
+            const data = JSON.parse(xhr.responseText);
             const outputEl = document.getElementById('output');
             if (outputEl) outputEl.textContent = '';
 
             // Print all headers
             Object.entries(data).forEach(([header, value]) => {
                 const line = `${header}: ${value}`;
-                // console.log(line);
+                console.log(line);
                 if (outputEl) outputEl.textContent += line + '\n';
             });
 
@@ -41,6 +45,7 @@
             console.error('Error fetching headers:', error);
         }
     }
-    fetchHeaders();
+    
+    fetchHeadersSync();
 </script>
 {{ endblock scripts }}

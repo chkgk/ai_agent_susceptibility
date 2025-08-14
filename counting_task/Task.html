@@ -1,0 +1,41 @@
+{{ block title }}
+    Counting Task
+{{ endblock }}
+
+{{ block content }}
+
+    <div class="card">
+        <div class="card-body">
+            <h2>Count the Ones</h2>
+            
+            <p>
+                Please look at the grid below and count how many cells contain the number "1".
+                Enter your count in the field below the image.
+            </p>
+            
+            <div class="text-center mb-4">
+                <img src="{{ static player.image_path }}" 
+                     alt="Binary table grid for counting" 
+                     class="img-fluid border border-dark"
+                     style="max-width: 100%; height: auto;">
+            </div>
+            
+            <div class="form-group">
+                {{ formfield 'counted_ones' }}
+            </div>
+            
+            <div class="alert alert-info mt-3">
+                <strong>Instructions:</strong>
+                <ul class="mb-0">
+                    <li>Count only the cells that contain "1"</li>
+                    <li>Ignore cells that contain "0"</li>
+                    <li>Enter a whole number (no decimals)</li>
+                    <li>Double-check your count before submitting</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {{ next_button }}
+
+{{ endblock }}

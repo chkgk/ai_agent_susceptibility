@@ -1,0 +1,27 @@
+{{ block title }}
+    Challenge
+{{ endblock }}
+
+{{ block scripts }}
+    <script>
+        const next_button = document.querySelector(".otree-btn-next");
+        
+        window.onload = function() {
+            // Disable the next button until the challenge is solved
+            next_button.disabled = true;
+        };
+        function activateNext(token) {
+            next_button.disabled = false;
+        }
+    </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+{{ endblock scripts }}
+
+{{ block content }}
+
+    <div class="cf-turnstile" data-sitekey="{{ captcha_site_key }}" data-response-field-name="captcha_token" data-callback="activateNext"></div>
+
+    {{ formfield_errors 'captcha_token' }}
+    {{ next_button }}
+
+{{ endblock }}

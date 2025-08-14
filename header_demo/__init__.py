@@ -56,5 +56,7 @@ class MyPage(Page):
 class Results(Page):
     pass
 
+class Results2(Page):
+    pass
 
-page_sequence = [MyPage, Results]
+page_sequence = [MyPage, Results, Results2]

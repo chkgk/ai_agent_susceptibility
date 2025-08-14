@@ -1,4 +1,8 @@
-from os import environ
+from os import environ, path
+from dotenv import load_dotenv
+
+if path.exists('.env'):
+    load_dotenv('.env')
 
 SESSION_CONFIGS = [
     dict(
@@ -7,6 +11,30 @@ SESSION_CONFIGS = [
         app_sequence=['header_demo'],
         num_demo_participants=3,
     ),
+    dict(
+        name='counting_task',
+        display_name='Counting Task',
+        app_sequence=['counting_task'],
+        num_demo_participants=1,
+    ),
+    dict(
+        name='cft',
+        display_name='Cloudflare Turnstile',
+        app_sequence=['cloudflare_turnstile'],
+        num_demo_participants=1,
+    ),
+    dict(
+        name='grc2',
+        display_name='Google reCAPTCHA v2',
+        app_sequence=['google_recaptcha_v2'],
+        num_demo_participants=1,
+    ),
+    dict(
+        name='grc3',
+        display_name='Google reCAPTCHA v3',
+        app_sequence=['google_recaptcha_v3'],
+        num_demo_participants=1,
+    )
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -36,3 +64,18 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 DEMO_PAGE_INTRO_HTML = """ """
 
 SECRET_KEY = '7264176703523'
+
+# Cloudflare Turnstile settings
+CF_SITE_KEY = environ.get('CF_SITE_KEY', None)
+CF_SECRET_KEY = environ.get('CF_SECRET_KEY', None)
+
+G2_SITE_KEY = environ.get('G2_SITE_KEY', None)
+G2_SECRET_KEY = environ.get('G2_SECRET_KEY', None)
+
+G3_SITE_KEY = environ.get('G3_SITE_KEY', None)
+G3_SECRET_KEY = environ.get('G3_SECRET_KEY', None)
+
+
+# Check if required environment variables are set
+if any(key is None for key in [CF_SITE_KEY, CF_SECRET_KEY, G2_SITE_KEY, G2_SECRET_KEY, G3_SITE_KEY, G3_SECRET_KEY]):
+    raise ValueError("Required environment variables are not set. ")
