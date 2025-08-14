@@ -30,8 +30,14 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
     ),
     dict(
+        name='grc2i',
+        display_name='Google reCAPTCHA v2 invisible',
+        app_sequence=['google_recaptcha_v2_invisible'],
+        num_demo_participants=1,
+    ),
+    dict(
         name='grc3',
-        display_name='Google reCAPTCHA v3',
+        display_name='Google reCAPTCHA v3 score',
         app_sequence=['google_recaptcha_v3'],
         num_demo_participants=1,
     )
@@ -75,7 +81,10 @@ G2_SECRET_KEY = environ.get('G2_SECRET_KEY', None)
 G3_SITE_KEY = environ.get('G3_SITE_KEY', None)
 G3_SECRET_KEY = environ.get('G3_SECRET_KEY', None)
 
+G4_SITE_KEY = environ.get('G4_SITE_KEY', None)
+G4_SECRET_KEY = environ.get('G4_SECRET_KEY', None)
+
 
 # Check if required environment variables are set
-if any(key is None for key in [CF_SITE_KEY, CF_SECRET_KEY, G2_SITE_KEY, G2_SECRET_KEY, G3_SITE_KEY, G3_SECRET_KEY]):
+if any(key is None for key in [CF_SITE_KEY, CF_SECRET_KEY, G2_SITE_KEY, G2_SECRET_KEY, G3_SITE_KEY, G3_SECRET_KEY, G4_SITE_KEY, G4_SECRET_KEY]):
     raise ValueError("Required environment variables are not set. ")

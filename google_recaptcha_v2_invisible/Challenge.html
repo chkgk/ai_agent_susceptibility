@@ -1,0 +1,33 @@
+{{ block title }}
+    Challenge
+{{ endblock }}
+
+{{ block scripts }}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        const inp = document.getElementById('id_captcha_token');
+        const next_button = document.querySelector('.otree-btn-next');
+        const form = next_button.closest('form');
+        
+        next_button.addEventListener('click', function(e) {
+            e.preventDefault()
+            next_button.disabled = true;
+            grecaptcha.execute();
+        });
+
+        function activateNext(token) {
+            inp.value = token;
+            form.submit();
+        }
+  </script>
+{{ endblock scripts }}
+
+{{ block content }}
+
+    <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}" data-callback="activateNext" data-size="invisible"></div>
+
+    <input type="hidden" name="captcha_token" id="id_captcha_token">
+    {{ formfield_errors 'captcha_token' }}
+    {{ next_button }}
+
+{{ endblock }}
