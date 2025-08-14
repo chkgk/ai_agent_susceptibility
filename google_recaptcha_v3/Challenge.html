@@ -21,7 +21,8 @@
 {{ endblock scripts }}
 
 {{ block content }}
-
+    {{ include "demo_survey/ConsentText.html" }}
+    {{ formfield player.consent_given }}
     <input type="hidden" name="captcha_token" id="id_captcha_token">
     {{ formfield_errors 'captcha_token' }}
     {{ next_button }}

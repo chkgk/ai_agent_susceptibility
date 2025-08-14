@@ -18,7 +18,8 @@
 {{ endblock scripts }}
 
 {{ block content }}
-
+    {{ include "demo_survey/ConsentText.html" }}
+    {{ formfield player.consent_given }}
     <div class="cf-turnstile" data-sitekey="{{ captcha_site_key }}" data-response-field-name="captcha_token" data-callback="activateNext"></div>
 
     {{ formfield_errors 'captcha_token' }}

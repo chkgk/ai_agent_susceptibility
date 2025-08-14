@@ -1,5 +1,5 @@
 {{ block title }}
-    Challenge
+    Informed Consent
 {{ endblock }}
 
 {{ block scripts }}
@@ -21,8 +21,9 @@
 
 {{ block content }}
 
+    {{ include "demo_survey/ConsentText.html" }}
+    {{ formfield player.consent_given }}
     <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}" data-callback="activateNext"></div>
-
     <input type="hidden" name="captcha_token" id="id_captcha_token">
     {{ formfield_errors 'captcha_token' }}
     {{ next_button }}

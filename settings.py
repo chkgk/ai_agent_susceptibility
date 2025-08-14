@@ -46,6 +46,12 @@ SESSION_CONFIGS = [
         display_name='Robot Question',
         app_sequence=['robot_question'],
         num_demo_participants=1,
+    ),
+    dict(
+        name='demo_survey',
+        display_name='Demo Survey',
+        app_sequence=['demo_survey'],
+        num_demo_participants=1,
     )
 ]
 

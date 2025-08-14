@@ -43,11 +43,15 @@ class Player(BasePlayer):
     captcha_result = models.BooleanField()
     captcha_server_response = models.LongStringField()
 
+    consent_given = models.BooleanField(initial=False,
+                                        label="I am 18 years or older, have read the above information and I consent to participate in this study",
+                                        widget=widgets.CheckboxInput)
+
 
 # PAGES
 class Challenge(Page):
     form_model = 'player'
-    form_fields = ['captcha_token']
+    form_fields = ['consent_given', 'captcha_token']
 
     def vars_for_template(player):
         return {
