@@ -1,16 +1,17 @@
 from otree.api import *
 from otree import settings
-import requests 
-import json 
+import requests
+import json
 
 doc = """
 Your app description
 """
 
+
 def validate_token(token, secret):
     url = "https://www.google.com/recaptcha/api/siteverify"
-    data = {'secret': secret, 'response': token }
-    
+    data = {'secret': secret, 'response': token}
+
     try:
         response = requests.post(url, data=data, timeout=10)
         response.raise_for_status()
@@ -21,7 +22,7 @@ def validate_token(token, secret):
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'grc2'
+    NAME_IN_URL = 'rob'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
@@ -42,26 +43,28 @@ class Player(BasePlayer):
     captcha_result = models.BooleanField()
     captcha_server_response = models.LongStringField()
 
+
 # PAGES
 class Challenge(Page):
     form_model = 'player'
     form_fields = ['captcha_token']
-    
+
     def vars_for_template(player):
         return {
             'captcha_site_key': settings.G2_SITE_KEY,
         }
 
+
 def captcha_token_error_message(player, value):
     if not value:
         return 'Please complete the challenge.'
-    
+
     result = validate_token(value, settings.G2_SECRET_KEY)
     player.captcha_server_response = json.dumps(result)
     player.captcha_result = result.get('success', False)
     player.captcha_score = 1 if player.captcha_result else 0
     return None
-        
+
 
 class Result(Page):
     pass
