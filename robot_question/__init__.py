@@ -32,7 +32,7 @@ class Player(BasePlayer):
         blank=True
     )
     captcha_score = models.FloatField()
-    captcha_result = models.BooleanField(label="Are you a robot?")
+    captcha_result = models.BooleanField(label="Are you a human?")
     captcha_server_response = models.LongStringField()
 
     consent_given = models.BooleanField(initial=False,
@@ -44,7 +44,8 @@ class Challenge(Page):
     form_model = 'player'
     form_fields = ['consent_given', 'captcha_result']
 
-
+    def before_next_page(player, timeout_happened):
+        player.captcha_score = player.captcha_result
 
 class Result(Page):
     pass
