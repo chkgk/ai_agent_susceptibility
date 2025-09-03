@@ -33,20 +33,21 @@ class Player(BasePlayer):
 
 
 # PAGES
-class Instructions(Page):
-    def before_next_page(player, timeout_happened):
+class Setup(WaitPage):
+    def after_all_players_arrive(group):
         """
         Generate binary table and image before moving to the Task page.
         """
-        # Generate random binary table
-        table_data, actual_count = generate_binary_table()
-
-        # Create image from table data
-        image_path = create_binary_table_image(table_data)
-
-        # Store the correct count and image path in Player model
-        player.correct_ones = actual_count
-        player.image_path = image_path
+        for player in group.get_players():
+            # Generate random binary table
+            table_data, actual_count = generate_binary_table(min_ones=37, max_ones=37)
+    
+            # Create image from table data
+            image_path = create_binary_table_image(table_data)
+    
+            # Store the correct count and image path in Player model
+            player.correct_ones = actual_count
+            player.image_path = image_path
 
 
 class Task(Page):
@@ -115,7 +116,7 @@ def create_binary_table_image(table_data, cell_size=40):
         str: Relative path to the generated PNG image file
     """
     grid_size = len(table_data)
-    image_size = grid_size * cell_size
+    image_size = grid_size * cell_size + 1  # +1 for the border
 
     # Generate unique filename
     unique_id = str(uuid.uuid4())[:8]
@@ -164,7 +165,7 @@ def create_binary_table_image(table_data, cell_size=40):
                 text_height = bbox[3] - bbox[1]
 
                 text_x = x + (cell_size - text_width) // 2
-                text_y = y + (cell_size - text_height) // 2
+                text_y = y + (cell_size - text_height) // 2 - 3  # Slight adjustment for vertical centering
 
                 draw.text((text_x, text_y), number, fill="black", font=font)
             else:
@@ -181,4 +182,4 @@ def create_binary_table_image(table_data, cell_size=40):
     return f"counting_task/{filename}"
 
 
-page_sequence = [Instructions, Task]
+page_sequence = [Setup, Task]
