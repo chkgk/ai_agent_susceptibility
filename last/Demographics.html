@@ -1,0 +1,87 @@
+{{ block title }}
+    Demographics
+{{ endblock }}
+
+{{ block styles }}
+    <link rel="stylesheet" href="{{ static 'last/bootstrap-slider.min.css' }}"/>
+    <style>
+        .slider-track {
+            background: #ccc;
+        }
+        .slider-selection {
+            background: #ccc;
+        }
+        
+        .slider-label-left {
+            font-size: 12px;
+            margin-right: 15px;
+        }
+        
+        .slider-label-right {
+            font-size: 12px;
+            margin-left: 15px;
+        }
+        
+        .slider-layout {
+            border-spacing: 0px 10px;
+            border-collapse: separate;
+        }
+        .slider-handle {
+            background-color: #003361;
+            color: #003361;
+            background-image: none;
+        }
+        .slider-horizontal {
+            width: 400px !important;
+        }
+    </style>
+{{ endblock }}
+
+{{ block content }}
+
+    {{ formfield player.age }}
+    {{ formfield player.gender }}
+    {{ formfield player.race }}
+    {{ formfield player.education_level }}
+    {{ formfield player.education_major }}
+
+    <div class="form-group required">
+        <label for="id_political_view" class="col-form-label">When referring to different political views, people often talk about “left” and “right”.<br>
+            Think about your own political views: Where would you place yourself?</label>
+        <table cellspacing="0" class="slider-layout" width="100%">
+            <tr>
+                <td align="right" width="250">
+                    <span class="green">far left</span>
+                </td>
+                <td align="center" width="410">
+                    <input id="id_political_view" name="political_view" type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="50"/>
+                </td>
+                <td align="left" width="250">
+                    <span class="red">far right</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    {{ formfield player.income_level }}
+    {{ formfield player.comment }}
+    
+    {{ next_button }}
+{{ endblock }}
+
+{{ block scripts }}
+    <script src="{{ static 'last/bootstrap-slider.min.js' }}"></script>
+    <script>
+        $("#id_political_view").slider();
+        $('.otree-btn-next').hide();
+        $('.slider-handle').hide();
+        
+        var slider_touched = false;
+        
+        $('.slider').on('mousedown', function (event) {
+            $(this).find('.slider-handle:not(.hide)').show();
+            slider_touched = true;
+            $('.otree-btn-next').show();
+        });
+    </script>
+{{ endblock }}

@@ -1,0 +1,20 @@
+{{ block title }}
+    Last Page
+{{ endblock }}
+
+{{ block content }}
+
+    <p>Thank you very much for participating in this study!</p>
+    <p>Here is your completion code: <span class="font-monospace">UIBK2025</span></p>
+
+    {{ formfields }}
+    {{ next_button }}
+{{ endblock }}
+
+
+{{ block scripts }}
+    <script>
+        let btn = document.getElementsByClassName("otree-btn-next")[0];
+        btn.textContent = "Complete Survey";
+    </script>
+{{ endblock }}

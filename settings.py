@@ -18,30 +18,6 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
     ),
     dict(
-        name='cft',
-        display_name='Cloudflare Turnstile',
-        app_sequence=['cloudflare_turnstile'],
-        num_demo_participants=1,
-    ),
-    dict(
-        name='grc2',
-        display_name='Google reCAPTCHA v2',
-        app_sequence=['google_recaptcha_v2'],
-        num_demo_participants=1,
-    ),
-    dict(
-        name='grc2i',
-        display_name='Google reCAPTCHA v2 invisible',
-        app_sequence=['google_recaptcha_v2_invisible'],
-        num_demo_participants=1,
-    ),
-    dict(
-        name='grc3',
-        display_name='Google reCAPTCHA v3 score',
-        app_sequence=['google_recaptcha_v3'],
-        num_demo_participants=1,
-    ),
-    dict(
         name='robot_question',
         display_name='Robot Question',
         app_sequence=['robot_question'],
@@ -51,6 +27,12 @@ SESSION_CONFIGS = [
         name='demo_survey',
         display_name='Demo Survey',
         app_sequence=['demo_survey'],
+        num_demo_participants=1,
+    ),
+    dict(
+        name="last",
+        display_name="Last",
+        app_sequence=["last"],
         num_demo_participants=1,
     )
 ]
