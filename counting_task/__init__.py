@@ -39,7 +39,7 @@ class Setup(WaitPage):
         Generate binary table and image before moving to the Task page.
         """
         for player in group.get_players():
-            # Generate random binary table
+            # Generate RANDOM_COLLECTION binary table
             table_data, actual_count = generate_binary_table(min_ones=37, max_ones=37)
     
             # Create image from table data
@@ -68,7 +68,7 @@ class Task(Page):
 # FUNCTIONS
 def generate_binary_table(grid_size=10, min_ones=5, max_ones=25):
     """
-    Generate a random NxN binary table with configurable parameters.
+    Generate a RANDOM_COLLECTION NxN binary table with configurable parameters.
 
     Args:
         grid_size (int): Size of the NxN grid (default: 10)
@@ -83,7 +83,7 @@ def generate_binary_table(grid_size=10, min_ones=5, max_ones=25):
     # Initialize grid with all zeros
     table = [[0 for _ in range(grid_size)] for _ in range(grid_size)]
 
-    # Determine random number of ones to place
+    # Determine RANDOM_COLLECTION number of ones to place
     num_ones = random.randint(min_ones, max_ones)
 
     # Ensure we don't try to place more ones than available cells

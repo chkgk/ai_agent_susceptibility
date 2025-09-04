@@ -1,0 +1,79 @@
+{{ block title }}
+    {{ trans "Results" }}
+{{ endblock }}
+
+
+{{ block content }}
+
+    {{ if C.NUM_ROUNDS == 1 }}
+        <p>
+        You chose to collect {{ boxes_collected }} out of {{ boxes_total }} boxes.
+        <br/>The bomb was hidden behind the box in row {{ bomb_row }}, column {{ bomb_col }}.
+        </p>
+
+        {{ if bomb }}
+           <p>
+                The bomb was among your {{ boxes_collected }} collected boxes.<br/>
+                Accordingly, all your earnings in this task were destroyed and your payoff amounts to {{ payoff }}.
+            </p>
+        {{ else }}
+            <p>
+                Your collected boxes did not contain the bomb.<br/>
+                Thus, you receive {{ box_value }} for each of the {{ boxes_collected }} boxes
+                you collected such that your payoff from this task amounts to <b>{{ payoff }}</b>.
+            </p>
+        {{ endif }}
+
+    {{ else }}
+        <p>
+            The table below summarizes the results of your decisions in the {{ num_rounds }} rounds played.
+        </p>
+    {{ endif }}
+
+
+    {{ if C.NUM_ROUNDS > 1 }}
+        <div class="card">
+            <div class="card-header">
+                <b>Round History</b>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>Round No.</th>
+                        <th>No. of Boxes Collected</th>
+                        <th>Bomb Collected</th>
+                        <th>Round Payoff</th>
+                    </tr>
+                    {{ for p in player_in_all_rounds }}
+                    <tr>
+                        <td>{{ p.subsession.round_number }}</td>
+                        <td>{{ p.boxes_collected }}</td>
+                        <td>
+                            {{ if p.bomb }}
+                                Yes
+                            {{ else }}
+                                No
+                            {{ endif }}
+                        </td>
+                        <td>{{ p.round_result }}</td>
+                    </tr>
+                    {{ endfor }}
+                </table>
+            </div>
+        </div>
+
+        <div class="card card-info">
+        {{ if C.RANDOM_PAYOFF }}
+            For your payment, round number {{ round_to_pay }} was randomly chosen. <br/>
+            Thus, your final payoff in this task amounts to {{ total_payoff }}.
+        {{ else }}
+            Your final payoff is determined by the sum of all payoffs per round
+            such that you final payoff in this task amounts to {{ total_payoff }}.
+        {{ endif }}
+        </div>
+    {{ endif }}
+
+    {{ next_button }}
+
+{{ endblock }}
