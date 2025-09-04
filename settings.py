@@ -6,6 +6,19 @@ if path.exists('.env'):
 
 SESSION_CONFIGS = [
     dict(
+        name="complete_survey",
+        display_name="Complete Survey",
+        app_sequence=[
+            "intro",
+            "bret",
+            "risk",
+            "slider_task",
+            "counting_task",
+            "last",
+        ],
+        num_demo_participants=4,
+    ),
+    dict(
         name='intro',
         display_name='Intro',
         app_sequence=['intro'],
