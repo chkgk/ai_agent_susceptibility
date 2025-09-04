@@ -1,0 +1,97 @@
+{{ block title }}
+    Real Effort Task
+{{ endblock }}
+
+{{ block styles }}
+<style>
+    .form-range {
+        width: 50%;
+    }
+    #id_pos_1 {
+        margin-left: 5%;
+    }
+    #id_pos_2 {
+        margin-left: 15%;
+    }
+    #id_pos_3 {
+        margin-left: 30%;
+    }
+    #id_pos_4 {
+        margin-left: 10%;
+    }
+    #id_pos_5 {
+        margin-left: 35%;
+    }
+</style>
+{{ endblock }}
+
+{{ block content }}
+    <p>Move all sliders to the middle position, such that the value is 50 on each one of them. </p>
+
+    <div class="grid">
+        <div class="row mb-3">
+            <div class="col-2">
+                Value: <output for="id_pos_1" id="id_pos_1_output" aria-hidden="true"></output>
+            </div>
+            <div class="col-10">
+                <input id="id_pos_1" name="pos_1" type="range" min="0" max="100" step="1" class="form-range"  value="{{ player.pos_1 }}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                Value: <output for="id_pos_2" id="id_pos_2_output" aria-hidden="true"></output>
+            </div>
+            <div class="col-10">
+                <input id="id_pos_2" name="pos_2" type="range" min="0" max="100" step="1" class="form-range" value="{{ player.pos_2 }}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                Value: <output for="id_pos_3" id="id_pos_3_output" aria-hidden="true"></output>
+            </div>
+            <div class="col-10">
+                <input id="id_pos_3" name="pos_3" type="range" min="0" max="100" step="1" class="form-range"  value="{{ player.pos_3 }}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                Value: <output for="id_pos_4" id="id_pos_4_output" aria-hidden="true"></output>
+            </div>
+            <div class="col-10">
+                <input id="id_pos_4" name="pos_4" type="range" min="0" max="100" step="1" class="form-range"  value="{{ player.pos_4 }}">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                Value: <output for="id_pos_5" id="id_pos_5_output" aria-hidden="true"></output>
+            </div>
+            <div class="col-10">
+                <input id="id_pos_5" name="pos_5" type="range" min="1" max="100" step="1" class="form-range" value="{{ player.pos_5 }}">
+            </div>
+        </div>
+    </div>
+
+
+    {{ next_button }}
+
+{{ endblock }}
+
+{{ block scripts }}
+    <script>
+        // Get all range inputs
+        const rangeInputs = document.querySelectorAll('.form-range');
+        
+        rangeInputs.forEach(input => {
+          const output = document.getElementById(`${input.id}_output`);
+        
+          // Set initial value
+          output.textContent = input.value;
+        
+          // Update on input
+          input.addEventListener('input', () => {
+            output.textContent = input.value;
+          });
+        });
+
+    </script>
+{{ endblock }}

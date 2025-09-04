@@ -91,7 +91,7 @@ class Player(BasePlayer):
                                           label="What is the highest degree or level of school you have completed?",
                                           widget=widgets.RadioSelect)
     education_major = models.StringField(label="If you have received at least some college education, what was your major?", blank=True)
-    political_view = models.IntegerField(min=1, max=100)
+    political_view = models.IntegerField(min=0, max=100)
     income_level = models.IntegerField(label="What is your gross annual income?", choices=C.INCOME_CHOICES)
     comment = models.LongStringField(label="Do you have any comments about the survey?", blank=True)
 

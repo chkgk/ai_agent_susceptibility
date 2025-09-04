@@ -3,36 +3,43 @@
 {{ endblock }}
 
 {{ block styles }}
-    <link rel="stylesheet" href="{{ static 'last/bootstrap-slider.min.css' }}"/>
     <style>
-        .slider-track {
-            background: #ccc;
+        input[type=range] {
+            width: 100%;
+            appearance: none;
+            background: #ddd;
+            height: 6px;
+            border-radius: 3px;
+            cursor: pointer;
         }
-        .slider-selection {
-            background: #ccc;
+
+        /* Hide the thumb initially */
+        input[type=range]::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #007bff;
+            cursor: pointer;
+            opacity: 0; /* invisible */
         }
-        
-        .slider-label-left {
-            font-size: 12px;
-            margin-right: 15px;
+
+        input[type=range].active::-webkit-slider-thumb {
+            opacity: 1; /* visible after first click */
         }
-        
-        .slider-label-right {
-            font-size: 12px;
-            margin-left: 15px;
+
+        input[type=range]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #007bff;
+            border: none;
+            cursor: pointer;
+            opacity: 0;
         }
-        
-        .slider-layout {
-            border-spacing: 0px 10px;
-            border-collapse: separate;
-        }
-        .slider-handle {
-            background-color: #003361;
-            color: #003361;
-            background-image: none;
-        }
-        .slider-horizontal {
-            width: 400px !important;
+
+        input[type=range].active::-moz-range-thumb {
+            opacity: 1;
         }
     </style>
 {{ endblock }}
@@ -45,22 +52,22 @@
     {{ formfield player.education_level }}
     {{ formfield player.education_major }}
 
-    <div class="form-group required">
+    <div class="form-group required mb-3">
         <label for="id_political_view" class="col-form-label">When referring to different political views, people often talk about “left” and “right”.<br>
             Think about your own political views: Where would you place yourself?</label>
-        <table cellspacing="0" class="slider-layout" width="100%">
-            <tr>
-                <td align="right" width="250">
-                    <span class="green">far left</span>
-                </td>
-                <td align="center" width="410">
-                    <input id="id_political_view" name="political_view" type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="50"/>
-                </td>
-                <td align="left" width="250">
-                    <span class="red">far right</span>
-                </td>
-            </tr>
-        </table>
+        <div class="grid">
+            <div class="row">
+                <div class="col-2" style="text-align: right;">
+                    far left
+                </div>
+                <div class="col-8 text-center">
+                    <input id="id_political_view" name="political_view" type="range" min="0" max="100" step="1" class="form-range">
+                </div>
+                <div class="col-2">
+                    far right
+                </div>
+            </div>
+        </div>
     </div>
 
     {{ formfield player.income_level }}
@@ -70,18 +77,24 @@
 {{ endblock }}
 
 {{ block scripts }}
-    <script src="{{ static 'last/bootstrap-slider.min.js' }}"></script>
+<!--    <script src="{{ static 'last/bootstrap-slider.min.js' }}"></script>-->
     <script>
-        $("#id_political_view").slider();
         $('.otree-btn-next').hide();
-        $('.slider-handle').hide();
         
-        var slider_touched = false;
-        
-        $('.slider').on('mousedown', function (event) {
-            $(this).find('.slider-handle:not(.hide)').show();
-            slider_touched = true;
-            $('.otree-btn-next').show();
+        const slider = document.getElementById('id_political_view');
+        let activated = false;
+
+        slider.addEventListener('mousedown', (e) => {
+            if (!activated) {
+                const rect = slider.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const percent = clickX / rect.width;
+                const newValue = slider.min * 1 + percent * (slider.max - slider.min);
+                slider.value = Math.round(newValue);
+                slider.classList.add('active');
+                activated = true;
+                $('.otree-btn-next').show();
+            }
         });
     </script>
 {{ endblock }}
