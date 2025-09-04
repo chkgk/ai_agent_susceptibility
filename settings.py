@@ -89,21 +89,3 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 DEMO_PAGE_INTRO_HTML = """ """
 
 SECRET_KEY = '7264176703523'
-
-# Cloudflare Turnstile settings
-CF_SITE_KEY = environ.get('CF_SITE_KEY', None)
-CF_SECRET_KEY = environ.get('CF_SECRET_KEY', None)
-
-G2_SITE_KEY = environ.get('G2_SITE_KEY', None)
-G2_SECRET_KEY = environ.get('G2_SECRET_KEY', None)
-
-G3_SITE_KEY = environ.get('G3_SITE_KEY', None)
-G3_SECRET_KEY = environ.get('G3_SECRET_KEY', None)
-
-G4_SITE_KEY = environ.get('G4_SITE_KEY', None)
-G4_SECRET_KEY = environ.get('G4_SECRET_KEY', None)
-
-
-# Check if required environment variables are set
-if any(key is None for key in [CF_SITE_KEY, CF_SECRET_KEY, G2_SITE_KEY, G2_SECRET_KEY, G3_SITE_KEY, G3_SECRET_KEY, G4_SITE_KEY, G4_SECRET_KEY]):
-    raise ValueError("Required environment variables are not set. ")
