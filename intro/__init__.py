@@ -4,11 +4,8 @@ doc = """
 Your app description
 """
 
-
-
-
 class C(BaseConstants):
-    NAME_IN_URL = 'survey'
+    NAME_IN_URL = 'intro'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
@@ -29,12 +26,8 @@ class Consent(Page):
     form_model = 'player'
     form_fields = ['consent_given']
     
-class Survey(Page):
+class Introduction(Page):
     pass
 
 
-class Result(Page):
-    pass
-
-
-page_sequence = [Consent, Survey, Result]
+page_sequence = [Consent, Introduction]

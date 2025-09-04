@@ -6,10 +6,10 @@ if path.exists('.env'):
 
 SESSION_CONFIGS = [
     dict(
-        name='header_demo',
-        display_name='Header Demo',
-        app_sequence=['header_demo'],
-        num_demo_participants=3,
+        name='intro',
+        display_name='Intro',
+        app_sequence=['intro'],
+        num_demo_participants=1,
     ),
     dict(
         name='counting_task',
@@ -18,22 +18,16 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
     ),
     dict(
-        name='robot_question',
-        display_name='Robot Question',
-        app_sequence=['robot_question'],
-        num_demo_participants=1,
-    ),
-    dict(
-        name='demo_survey',
-        display_name='Demo Survey',
-        app_sequence=['demo_survey'],
-        num_demo_participants=1,
-    ),
-    dict(
         name="last",
         display_name="Last",
         app_sequence=["last"],
         num_demo_participants=1,
+    ),
+    dict(
+        name='header_demo',
+        display_name='Header Demo',
+        app_sequence=['header_demo'],
+        num_demo_participants=3,
     )
 ]
 
