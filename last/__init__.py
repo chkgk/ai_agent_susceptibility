@@ -52,6 +52,31 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    # big 5 intellect
+    b5_intellect_1 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                         label="Am quick to understand things.")
+    b5_intellect_2 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                         label="Have difficulty understanding abstract ideas.")
+    b5_intellect_3 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                         label="Can handle a lot of information.")
+    b5_intellect_4 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                         label="Like to solve complex problems.")
+    b5_intellect_5 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                         label="Avoid philosophical discussions.")
+    b5_intellect_6 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                         label="Avoid difficult reading material.")
+    b5_intellect_7 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                         label="Have a rich vocabulary.")
+    b5_intellect_8 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                         label="Think quickly.")
+    b5_intellect_9 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                         label="Learn things slowly.")
+    b5_intellect_10 = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelectHorizontal(),
+                                          label="Formulate ideas clearly.")
+
+    b5_intellect_score = models.FloatField()
+    
+    # demographics
     age = models.IntegerField(min=18, max=100, label="How old are you?")
     gender = models.IntegerField(min=0, max=3, choices=[
         (1, 'Female'),
@@ -71,6 +96,24 @@ class Player(BasePlayer):
     comment = models.LongStringField(label="Do you have any comments about the survey?", blank=True)
 
 # PAGES
+class B5i(Page):
+    form_model = 'player'
+    form_fields = ['b5_intellect_1', 'b5_intellect_2', 'b5_intellect_3', 'b5_intellect_4', 'b5_intellect_5', 'b5_intellect_6', 'b5_intellect_7', 'b5_intellect_8', 'b5_intellect_9', 'b5_intellect_10']
+
+    def before_next_page(player, timeout_happened):
+        player.b5_intellect_score = sum([
+            player.b5_intellect_1,
+            player.b5_intellect_2,
+            player.b5_intellect_3,
+            player.b5_intellect_4,
+            6 - player.b5_intellect_5,
+            player.b5_intellect_6,
+            player.b5_intellect_7,
+            6 - player.b5_intellect_8,
+            6 - player.b5_intellect_9,
+            6 - player.b5_intellect_10
+        ]) / 10
+
 class Demographics(Page):
     form_model = 'player'
     form_fields = [
@@ -93,4 +136,4 @@ class LastPage(Page):
 
 
 
-page_sequence = [Demographics, LastPage]
+page_sequence = [B5i, Demographics, LastPage]

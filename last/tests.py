@@ -4,6 +4,19 @@ import random
 
 class PlayerBot(Bot):
     def play_round(self):
+        yield B5i, {
+            "b5_intellect_1": random.randint(1, 5),
+            "b5_intellect_2": random.randint(1, 5),
+            "b5_intellect_3": random.randint(1, 5),
+            "b5_intellect_4": random.randint(1, 5),
+            "b5_intellect_5": random.randint(1, 5),
+            "b5_intellect_6": random.randint(1, 5),
+            "b5_intellect_7": random.randint(1, 5),
+            "b5_intellect_8": random.randint(1, 5),
+            "b5_intellect_9": random.randint(1, 5),
+            "b5_intellect_10": random.randint(1, 5),
+        }
+        
         edu_level = random.randint(1, 6)
         edu_major = "Economics" if edu_level > 2 else None
             

@@ -30,8 +30,14 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
     ),
     dict(
+        name='slider_task',
+        display_name='Slider Task',
+        app_sequence=['slider_task'],
+        num_demo_participants=1,
+    ),
+    dict(
         name="last",
-        display_name="Last",
+        display_name="Big5i, Demographics, Last Page",
         app_sequence=["last"],
         num_demo_participants=1,
     ),
