@@ -1,0 +1,31 @@
+{{ block title }}
+    Informed Consent
+{{ endblock }}
+
+{{ block scripts }}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        const next_button = document.querySelector(".otree-btn-next");
+        const token_input = document.getElementById('id_captcha_token');
+        
+        window.onload = function() {
+            // Disable the next button until the challenge is solved
+            next_button.disabled = true;
+        };
+        function activateNext(token) {
+            token_input.value = token;
+            next_button.disabled = false;
+        }
+  </script>
+{{ endblock scripts }}
+
+{{ block content }}
+
+    {{ include "intro/ConsentText.html" }}
+    {{ formfield player.consent_given }}
+    <div class="g-recaptcha" data-sitekey="{{ captcha_site_key }}" data-callback="activateNext"></div>
+    <input type="hidden" name="captcha_token" id="id_captcha_token">
+    {{ formfield_errors 'captcha_token' }}
+    {{ next_button }}
+
+{{ endblock }}

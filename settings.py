@@ -54,12 +54,48 @@ SESSION_CONFIGS = [
         app_sequence=["last"],
         num_demo_participants=1,
     ),
+    # dict(
+    #     name='header_demo',
+    #     display_name='Header Demo',
+    #     app_sequence=['header_demo'],
+    #     num_demo_participants=3,
+    # ),
     dict(
-        name='header_demo',
-        display_name='Header Demo',
-        app_sequence=['header_demo'],
-        num_demo_participants=3,
-    )
+            name='cft',
+            display_name='Cloudflare Turnstile',
+            app_sequence=['cloudflare_turnstile'],
+            num_demo_participants=1,
+        ),
+        dict(
+            name='grc2',
+            display_name='Google reCAPTCHA v2',
+            app_sequence=['google_recaptcha_v2'],
+            num_demo_participants=1,
+        ),
+        dict(
+            name='grc2i',
+            display_name='Google reCAPTCHA v2 invisible',
+            app_sequence=['google_recaptcha_v2_invisible'],
+            num_demo_participants=1,
+        ),
+        dict(
+            name='grc3',
+            display_name='Google reCAPTCHA v3 score',
+            app_sequence=['google_recaptcha_v3'],
+            num_demo_participants=1,
+        ),
+        dict(
+            name='hcaptcha',
+            display_name='hCAPTCHA',
+            app_sequence=['hcaptcha'],
+            num_demo_participants=1,
+        ),
+        dict(
+            name='human_question',
+            display_name='Human Question',
+            app_sequence=['human_question'],
+            num_demo_participants=1,
+        ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -89,3 +125,29 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 DEMO_PAGE_INTRO_HTML = """ """
 
 SECRET_KEY = '7264176703523'
+
+
+# Cloudflare Turnstile settings
+CF_SITE_KEY = environ.get('CF_SITE_KEY', None)
+CF_SECRET_KEY = environ.get('CF_SECRET_KEY', None)
+
+# Google v2 reCAPTCHA settings
+G2_SITE_KEY = environ.get('G2_SITE_KEY', None)
+G2_SECRET_KEY = environ.get('G2_SECRET_KEY', None)
+
+# Google v3 reCAPTCHA settings
+G3_SITE_KEY = environ.get('G3_SITE_KEY', None)
+G3_SECRET_KEY = environ.get('G3_SECRET_KEY', None)
+
+# Google v2 invisible reCAPTCHA settings
+G4_SITE_KEY = environ.get('G4_SITE_KEY', None)
+G4_SECRET_KEY = environ.get('G4_SECRET_KEY', None)
+
+# HCAPTCHA settings
+HC_SITE_KEY = environ.get('HC_SITE_KEY', None)
+HC_SECRET_KEY = environ.get('HC_SECRET_KEY', None)
+
+
+# Check if required environment variables are set
+if any(key is None for key in [CF_SITE_KEY, CF_SECRET_KEY, G2_SITE_KEY, G2_SECRET_KEY, G3_SITE_KEY, G3_SECRET_KEY, G4_SITE_KEY, G4_SECRET_KEY]):
+    raise ValueError("Required environment variables are not set. ")
